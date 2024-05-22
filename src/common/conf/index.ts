@@ -10,6 +10,7 @@ const env = z
     DB_USERNAME: z.string().default('user'),
     DB_PASSWORD: z.string().default('12345678'),
     DB_DATABASE: z.string().default('skinscan'),
+    DB_URL: z.string(),
   })
   .parse(process.env);
 
@@ -24,6 +25,6 @@ export const conf = {
     username: env.DB_USERNAME,
     password: env.DB_PASSWORD,
     database: env.DB_DATABASE,
-    url: `postgresql://${env.DB_USERNAME}:${env.DB_PASSWORD}@${env.DB_HOST}:${env.DB_PORT}/${env.DB_DATABASE}`,
+    url: env.DB_URL,
   },
 };
