@@ -8,9 +8,6 @@ export const errorMiddleware = (
   res: Response,
   _next: NextFunction,
 ) => {
-  console.log(error.status);
-  console.log(error.name);
-  console.log(error.response);
   const status = error.status || StatusCodes.INTERNAL_SERVER_ERROR;
   const response = error.response ?? {
     status: StatusCodes.INTERNAL_SERVER_ERROR,

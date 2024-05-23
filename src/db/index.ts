@@ -1,9 +1,9 @@
 import Cursor from 'pg-cursor';
 
 import { Pool } from 'pg';
-import { CamelCasePlugin, Kysely, PostgresDialect } from 'kysely';
-import { DB } from '../../prisma/generated/types';
 import { conf } from '../common/conf';
+import { Kysely, PostgresDialect } from 'kysely';
+import { DB } from '../../prisma/generated/types';
 
 export const db = new Kysely<DB>({
   dialect: new PostgresDialect({
@@ -16,5 +16,4 @@ export const db = new Kysely<DB>({
     }),
     cursor: Cursor,
   }),
-  plugins: [new CamelCasePlugin()],
 });

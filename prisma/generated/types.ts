@@ -12,7 +12,7 @@ export type DetectionStatus =
   (typeof DetectionStatus)[keyof typeof DetectionStatus];
 export type Detection = {
   id: Generated<string>;
-  userId: string;
+  userId: string | null;
   status: DetectionStatus;
   diagnosis: string;
   assessment: string | null;

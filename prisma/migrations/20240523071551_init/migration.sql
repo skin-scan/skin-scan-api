@@ -2,7 +2,7 @@
 CREATE TYPE "DetectionStatus" AS ENUM ('DIAGNOSED', 'SAFE');
 
 -- CreateTable
-CREATE TABLE "User" (
+CREATE TABLE "users" (
     "id" TEXT NOT NULL DEFAULT gen_random_uuid(),
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -15,13 +15,13 @@ CREATE TABLE "User" (
     "deleted_at" TIMESTAMP(3),
     "deleted_by" TEXT,
 
-    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Detection" (
+CREATE TABLE "detections" (
     "id" TEXT NOT NULL DEFAULT gen_random_uuid(),
-    "user_id" TEXT NOT NULL,
+    "user_id" TEXT,
     "status" "DetectionStatus" NOT NULL,
     "diagnosis" TEXT NOT NULL,
     "assessment" TEXT,
@@ -33,11 +33,11 @@ CREATE TABLE "Detection" (
     "deleted_at" TIMESTAMP(3),
     "deleted_by" TEXT,
 
-    CONSTRAINT "Detection_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "detections_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- AddForeignKey
-ALTER TABLE "Detection" ADD CONSTRAINT "Detection_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "detections" ADD CONSTRAINT "detections_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;

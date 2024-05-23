@@ -1,6 +1,5 @@
 generator kysely {
-  provider  = "prisma-kysely"
-  camelCase = "true"
+  provider = "prisma-kysely"
 }
 
 datasource db {
@@ -9,36 +8,36 @@ datasource db {
 }
 
 model User {
-  id              String    @id @default(dbgenerated("gen_random_uuid()"))
-  name            String
-  email           String    @unique
-  hashed_password String
-  profile_picture String?
-  created_at      DateTime  @default(now())
-  created_by      String
-  updated_at      DateTime  @default(now())
-  updated_by      String
-  deleted_at      DateTime?
-  deleted_by      String?
+  id             String    @id @default(dbgenerated("gen_random_uuid()"))
+  name           String
+  email          String    @unique
+  hashedPassword String
+  profilePicture String?
+  createdAt      DateTime  @default(now())
+  createdBy      String
+  updatedAt      DateTime  @default(now()) @updatedAt
+  updatedBy      String
+  deletedAt      DateTime?
+  deletedBy      String?
 
   detections Detection[]
 }
 
 model Detection {
   id         String          @id @default(dbgenerated("gen_random_uuid()"))
-  user_id    String
+  userId     String?
   status     DetectionStatus
   diagnosis  String
   assessment String?
-  body_part  String
-  created_at DateTime        @default(now())
-  created_by String
-  updated_at DateTime        @default(now())
-  updated_by String
-  deleted_at DateTime?
-  deleted_by String?
+  bodyPart   String
+  createdAt  DateTime        @default(now())
+  createdBy  String
+  updatedAt  DateTime        @default(now()) @updatedAt
+  updatedBy  String
+  deletedAt  DateTime?
+  deletedBy  String?
 
-  user User? @relation(fields: [user_id], references: [id])
+  user User? @relation(fields: [userId], references: [id])
 }
 
 enum DetectionStatus {

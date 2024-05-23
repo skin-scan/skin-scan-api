@@ -11,6 +11,7 @@ const env = z
     DB_PASSWORD: z.string().default('12345678'),
     DB_DATABASE: z.string().default('skinscan'),
     DB_URL: z.string(),
+    JWT_SECRET: z.string(),
   })
   .parse(process.env);
 
@@ -26,5 +27,8 @@ export const conf = {
     password: env.DB_PASSWORD,
     database: env.DB_DATABASE,
     url: env.DB_URL,
+  },
+  jwt: {
+    secret: env.JWT_SECRET,
   },
 };
