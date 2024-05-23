@@ -1,18 +1,18 @@
-import { StatusCodes, getReasonPhrase, getStatusCode } from 'http-status-codes';
+import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 
 export class HttpException extends Error {
   status: StatusCodes;
   response: {
     status: number;
     error: string;
-    message?: string;
+    message?: any;
   };
 
-  constructor(status: StatusCodes, message?: string) {
+  constructor(status: StatusCodes, message?: any) {
     super();
     this.status = status;
     this.response = {
-      status: 400,
+      status: status,
       error: getReasonPhrase(status),
       message: message || 'No message available',
     };

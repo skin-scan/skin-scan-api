@@ -1,8 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 import { HttpException } from './http.exception';
 
-export class BadRequestException extends HttpException {
+export class InternalServerErrorException extends HttpException {
   constructor(message?: any) {
-    super(StatusCodes.BAD_REQUEST, message);
+    super(StatusCodes.INTERNAL_SERVER_ERROR, message);
   }
 }
