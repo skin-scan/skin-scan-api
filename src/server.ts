@@ -10,21 +10,26 @@ import { errorMiddleware } from './common/middlewares/error.middleware';
 
 import pingRoutes from './api/ping/ping.routes';
 import authRoutes from './api/auth/auth.routes';
+import profileRoutes from './api/profile/profile.routes';
 
 const app = express();
 const router = express.Router();
 
 app.use(cors());
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use(
   morgan(':method :url :status :res[content-length] - :response-time ms'),
 );
 
 router.use('/ping', pingRoutes);
 router.use('/auth', authRoutes);
+router.use('/profile', profileRoutes);
 
 app.use(API_PREFIX, router);
 app.use(errorMiddleware);
 app.listen(conf.app.port, () => {
-  console.log(`Server is running on port ${conf.app.port}`);
+  console.info(`Server is running on port ${conf.app.port}`);
 });
