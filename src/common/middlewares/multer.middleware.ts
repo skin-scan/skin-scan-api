@@ -12,7 +12,6 @@ const multerMiddleware = (allowedMimeTypes: string[], maxFileSize: number) =>
       if (allowedMimeTypes.includes(file.mimetype)) {
         cb(null, true);
       } else {
-        console.log('2');
         cb(new BadRequestException(`Unsupported ${file.mimetype} file type`));
       }
     },

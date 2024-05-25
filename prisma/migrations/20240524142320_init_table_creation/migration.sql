@@ -22,10 +22,11 @@ CREATE TABLE "User" (
 CREATE TABLE "Detection" (
     "id" TEXT NOT NULL DEFAULT gen_random_uuid(),
     "userId" TEXT,
+    "name" TEXT NOT NULL,
     "status" "DetectionStatus" NOT NULL,
+    "image" TEXT NOT NULL,
     "diagnosis" TEXT NOT NULL,
     "assessment" TEXT,
-    "bodyPart" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "createdBy" TEXT NOT NULL,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

@@ -13,10 +13,11 @@ export type DetectionStatus =
 export type Detection = {
   id: Generated<string>;
   userId: string | null;
+  name: string;
   status: DetectionStatus;
+  image: string;
   diagnosis: string;
   assessment: string | null;
-  bodyPart: string;
   createdAt: Generated<Timestamp>;
   createdBy: string;
   updatedAt: Generated<Timestamp>;
