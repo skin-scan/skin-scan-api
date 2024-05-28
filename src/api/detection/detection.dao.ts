@@ -60,44 +60,48 @@ class DetectionDao {
   }
 
   async getAll(spec: GetAllDetectionDto) {
-    let query = db
-      .selectFrom('Detection')
-      .select([
-        'Detection.id',
-        'Detection.name',
-        'Detection.image',
-        'Detection.status',
-        'Detection.diagnosis',
-        'Detection.createdAt',
-      ])
-      .where((eb) =>
-        eb.and([
-          eb('Detection.deletedAt', 'is', null),
-          eb('Detection.deletedBy', 'is', null),
-          eb('Detection.userId', '=', spec.userId),
-        ]),
-      );
+    try {
+      let query = db
+        .selectFrom('Detection')
+        .select([
+          'Detection.id',
+          'Detection.name',
+          'Detection.image',
+          'Detection.status',
+          'Detection.diagnosis',
+          'Detection.createdAt',
+        ])
+        .where((eb) =>
+          eb.and([
+            eb('Detection.deletedAt', 'is', null),
+            eb('Detection.deletedBy', 'is', null),
+            eb('Detection.userId', '=', spec.userId),
+          ]),
+        );
 
-    if (spec.status) {
-      query = query.where('Detection.status', '=', spec.status);
+      if (spec.status) {
+        query = query.where('Detection.status', '=', spec.status);
+      }
+
+      if (spec.q) {
+        query = query.where((eb) =>
+          eb.or([
+            eb('Detection.name', 'like', `${spec.q}%`),
+            eb('Detection.diagnosis', 'like', `${spec.q}%`),
+          ]),
+        );
+      }
+
+      const detections = await query
+        .limit(spec.limit)
+        .offset(spec.limit * (spec.page - 1))
+        .orderBy('Detection.createdAt', spec.order)
+        .execute();
+
+      return detections;
+    } catch (error) {
+      throw new UnprocessableEntityException(error);
     }
-
-    if (spec.q) {
-      query = query.where((eb) =>
-        eb.or([
-          eb('Detection.name', 'like', `${spec.q}%`),
-          eb('Detection.diagnosis', 'like', `${spec.q}%`),
-        ]),
-      );
-    }
-
-    const detections = await query
-      .limit(spec.limit)
-      .offset(spec.limit * (spec.page - 1))
-      .orderBy('Detection.createdAt', spec.order)
-      .execute();
-
-    return detections;
   }
 
   async deleteById(spec: DeleteDetectionDto) {
@@ -115,6 +119,7 @@ class DetectionDao {
           deletedBy: spec.requestedBy,
           deletedAt: new Date(),
         })
+        .returning('Detection.id')
         .executeTakeFirstOrThrow();
 
       return detection;
