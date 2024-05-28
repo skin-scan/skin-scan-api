@@ -9,10 +9,13 @@ class ProfileService {
       throw new BadRequestException(`User with id ${id} doesnt exists`);
     }
 
+    const summary = await profileDao.getDetectionSummaryById(id);
+
     return {
       name: user.name,
       email: user.email,
       profilePicture: user.profilePicture,
+      summary: summary,
     };
   }
 
