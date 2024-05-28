@@ -17,6 +17,7 @@ import { BadRequestException } from '../../common/exceptions';
 import detectionService from './detection.service';
 import {
   CreateDetectionDto,
+  DeleteDetectionDto,
   GetAllDetectionDto,
   GetDetectionDto,
 } from './detection.dto';
@@ -99,7 +100,15 @@ router.delete(
     if (!user) {
       throw new BadRequestException();
     }
-    return response(res, StatusCodes.OK, 'ok');
+
+    const { params } = DeleteDetectionSchema.parse(req);
+    const spec = params as DeleteDetectionDto;
+    spec.userId = user.id;
+    spec.requestedBy = user.email;
+
+    const result = await detectionService.deleteById(spec);
+
+    return response(res, StatusCodes.OK, result);
   },
 );
 
