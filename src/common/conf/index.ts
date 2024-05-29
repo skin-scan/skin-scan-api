@@ -12,6 +12,9 @@ const env = z
     DB_DATABASE: z.string().default('skinscan'),
     DB_URL: z.string(),
     JWT_SECRET: z.string(),
+    GCP_PROJECT_ID: z.string(),
+    GCP_SERVICE_KEY: z.string(),
+    GCP_BUCKET_NAME: z.string(),
   })
   .parse(process.env);
 
@@ -30,5 +33,10 @@ export const conf = {
   },
   jwt: {
     secret: env.JWT_SECRET,
+  },
+  gcp: {
+    projectId: env.GCP_PROJECT_ID,
+    serviceKey: env.GCP_SERVICE_KEY,
+    bucketName: env.GCP_BUCKET_NAME,
   },
 };
