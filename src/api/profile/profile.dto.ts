@@ -3,7 +3,6 @@ import { User } from '../../../prisma/generated/types';
 export type UpdateProfileDto = Omit<
   User,
   | 'id'
-  | 'profilePicture'
   | 'createdAt'
   | 'createdBy'
   | 'updatedAt'
@@ -13,4 +12,5 @@ export type UpdateProfileDto = Omit<
 > & {
   name: string;
   email: string;
+  file?: Express.Multer.File;
 };

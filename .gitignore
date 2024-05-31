@@ -38,5 +38,5 @@ lerna-debug.log*
 .env
 
 # Creds
-key.json
+service-key.json
 .vercel

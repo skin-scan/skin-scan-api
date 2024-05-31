@@ -4,15 +4,22 @@ import {
   GetAllDetectionDto,
   GetDetectionDto,
 } from './detection.dto';
+import { v4 as uuidv4 } from 'uuid';
+import { uploadFile } from '../../bucket';
 import detectionDao from './detection.dao';
 import { NotFounException } from '../../common/exceptions';
 import { DetectionStatus } from '../../../prisma/generated/types';
 
 class DetectionService {
   async create(spec: CreateDetectionDto) {
+    const id = uuidv4();
+
+    (spec as any).id = id;
     spec.diagnosis = 'DUMMY';
     spec.status = DetectionStatus.DIAGNOSED;
-    spec.image = spec.file.originalname;
+
+    const publicUrl = await uploadFile(spec.file, id);
+    spec.image = publicUrl;
     delete (spec as any).file;
 
     const result = await detectionDao.create(spec);
