@@ -24,4 +24,4 @@ COPY --from=builder /usr/src/app/dist ./dist
 
 EXPOSE 3000
 
-CMD ["npm", "start:prod"]
+CMD ["node", "node dist/src/server.js"]
