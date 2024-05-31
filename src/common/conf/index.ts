@@ -15,6 +15,7 @@ const env = z
     GCP_PROJECT_ID: z.string(),
     GCP_SERVICE_KEY: z.string(),
     GCP_BUCKET_NAME: z.string(),
+    MODEL_URL: z.string(),
   })
   .parse(process.env);
 
@@ -38,5 +39,8 @@ export const conf = {
     projectId: env.GCP_PROJECT_ID,
     serviceKey: env.GCP_SERVICE_KEY,
     bucketName: env.GCP_BUCKET_NAME,
+  },
+  model: {
+    url: env.MODEL_URL,
   },
 };
