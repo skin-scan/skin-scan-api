@@ -34,7 +34,9 @@ router.put(
     if (!user) {
       throw new BadRequestException();
     }
+
     const spec = req.body as UpdateProfileDto;
+    spec.file = req.file;
     const result = await profileService.updateById(user.id, spec);
 
     return response(res, StatusCodes.OK, result);
