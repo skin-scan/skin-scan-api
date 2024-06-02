@@ -15,7 +15,7 @@ class DetectionModel {
   private async loadLabels() {
     if (!this.labels) {
       const jsonObject = JSON.parse(fs.readFileSync(conf.model.labels, 'utf8'));
-      this.labels = Object.keys(jsonObject).map(key => jsonObject[key]);
+      this.labels = Object.keys(jsonObject).map((key) => jsonObject[key]);
     }
   }
 
@@ -28,11 +28,12 @@ class DetectionModel {
       .resizeNearestNeighbor([180, 180])
       .expandDims()
       .toFloat();
-    
+
     const prediction = this.model!.predict(tensor) as tf.Tensor;
     const data = await prediction.data();
 
     const maxIndex = data.indexOf(Math.max(...data));
+
     return this.labels[maxIndex];
   }
 }

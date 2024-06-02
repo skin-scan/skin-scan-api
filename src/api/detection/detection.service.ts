@@ -16,8 +16,11 @@ class DetectionService {
     const id = uuidv4();
 
     (spec as any).id = id;
-    spec.diagnosis = await detectionModel.predict(spec.file.buffer)
-    spec.status = spec.diagnosis == 'Healthy' ? DetectionStatus.SAFE : DetectionStatus.DIAGNOSED;
+    spec.diagnosis = await detectionModel.predict(spec.file.buffer);
+    spec.status =
+      spec.diagnosis == 'Healthy'
+        ? DetectionStatus.SAFE
+        : DetectionStatus.DIAGNOSED;
 
     const publicUrl = await uploadFile(spec.file, id);
     spec.image = publicUrl;
