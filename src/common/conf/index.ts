@@ -41,7 +41,7 @@ export const conf = {
     projectId: env.GCP_PROJECT_ID,
     clientEmail: env.GCP_CLIENT_EMAIL,
     bucketName: env.GCP_BUCKET_NAME,
-    privateKey: env.GCP_PRIVATE_KEY,
+    privateKey: env.GCP_PRIVATE_KEY.replace(/\\n/g, '\n'),
   },
   model: {
     url: env.MODEL_URL,
