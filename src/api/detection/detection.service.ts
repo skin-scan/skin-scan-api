@@ -7,6 +7,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { uploadFile } from '../../bucket';
 import detectionDao from './detection.dao';
+import detectionModel from './detection.model';
 import { NotFounException } from '../../common/exceptions';
 import { DetectionStatus } from '../../../prisma/generated/types';
 
@@ -15,8 +16,8 @@ class DetectionService {
     const id = uuidv4();
 
     (spec as any).id = id;
-    spec.diagnosis = 'DUMMY';
-    spec.status = DetectionStatus.DIAGNOSED;
+    spec.diagnosis = await detectionModel.predict(spec.file.buffer)
+    spec.status = spec.diagnosis == 'Healthy' ? DetectionStatus.SAFE : DetectionStatus.DIAGNOSED;
 
     const publicUrl = await uploadFile(spec.file, id);
     spec.image = publicUrl;
