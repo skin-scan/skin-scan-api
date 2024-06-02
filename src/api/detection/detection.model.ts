@@ -25,7 +25,7 @@ class DetectionModel {
 
     const tensor = tf.node
       .decodeImage(image, 3)
-      .resizeNearestNeighbor([150, 150])
+      .resizeNearestNeighbor([180, 180])
       .expandDims()
       .toFloat();
     
