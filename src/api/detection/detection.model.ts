@@ -1,6 +1,7 @@
 import { conf } from '../../common/conf';
 import * as tf from '@tensorflow/tfjs-node';
 import * as fs from 'fs';
+import { UnprocessableEntityException } from '../../common/exceptions';
 
 class DetectionModel {
   private model: tf.GraphModel | undefined;
@@ -20,21 +21,25 @@ class DetectionModel {
   }
 
   async predict(image: Buffer) {
-    await this.loadModel();
-    await this.loadLabels();
+    try {
+      await this.loadModel();
+      await this.loadLabels();
 
-    const tensor = tf.node
-      .decodeImage(image, 3)
-      .resizeNearestNeighbor([180, 180])
-      .expandDims()
-      .toFloat();
+      const tensor = tf.node
+        .decodeImage(image, 3)
+        .resizeNearestNeighbor([180, 180])
+        .expandDims()
+        .toFloat();
 
-    const prediction = this.model!.predict(tensor) as tf.Tensor;
-    const data = await prediction.data();
+      const prediction = this.model!.predict(tensor) as tf.Tensor;
+      const data = await prediction.data();
 
-    const maxIndex = data.indexOf(Math.max(...data));
+      const maxIndex = data.indexOf(Math.max(...data));
 
-    return this.labels[maxIndex];
+      return this.labels[maxIndex];
+    } catch (error) {
+      throw new UnprocessableEntityException(error);
+    }
   }
 }
 
