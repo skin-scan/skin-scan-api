@@ -16,6 +16,7 @@ const env = z
     GCP_SERVICE_KEY: z.string(),
     GCP_BUCKET_NAME: z.string(),
     MODEL_URL: z.string(),
+    MODEL_LABELS: z.string(),
   })
   .parse(process.env);
 
@@ -42,5 +43,6 @@ export const conf = {
   },
   model: {
     url: env.MODEL_URL,
+    labels: env.MODEL_LABELS,
   },
 };
