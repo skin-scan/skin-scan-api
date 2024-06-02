@@ -3,7 +3,10 @@ import { Storage } from '@google-cloud/storage';
 
 const storage = new Storage({
   projectId: conf.gcp.projectId,
-  keyFilename: conf.gcp.serviceKey,
+  credentials: {
+    client_email: conf.gcp.clientEmail,
+    private_key: `${conf.gcp.privateKey}`,
+  },
 });
 
 const bucket = storage.bucket(conf.gcp.bucketName);

@@ -13,7 +13,8 @@ const env = z
     DB_URL: z.string(),
     JWT_SECRET: z.string(),
     GCP_PROJECT_ID: z.string(),
-    GCP_SERVICE_KEY: z.string(),
+    GCP_CLIENT_EMAIL: z.string(),
+    GCP_PRIVATE_KEY: z.string(),
     GCP_BUCKET_NAME: z.string(),
     MODEL_URL: z.string(),
     MODEL_LABELS: z.string(),
@@ -38,8 +39,9 @@ export const conf = {
   },
   gcp: {
     projectId: env.GCP_PROJECT_ID,
-    serviceKey: env.GCP_SERVICE_KEY,
+    clientEmail: env.GCP_CLIENT_EMAIL,
     bucketName: env.GCP_BUCKET_NAME,
+    privateKey: env.GCP_PRIVATE_KEY,
   },
   model: {
     url: env.MODEL_URL,
