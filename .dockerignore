@@ -1,4 +1,9 @@
 node_modules
-.gitignore
 README.md
+commitlint.config.ts 
+.gitignore
 .env.example
+.prettierignore
+.prettierrc
+.eslintignore
+.eslintrc.js
