@@ -14,9 +14,11 @@ import { DetectionStatus } from '../../../prisma/generated/types';
 class DetectionService {
   async create(spec: CreateDetectionDto) {
     const id = uuidv4();
-
     (spec as any).id = id;
-    spec.diagnosis = await detectionModel.predict(spec.file.buffer);
+
+    const detection = await detectionModel.predict(spec.file.buffer);
+    spec.diagnosis = detection.name;
+    spec.assessment = detection.assessment;
     spec.status =
       spec.diagnosis == 'Healthy'
         ? DetectionStatus.SAFE
@@ -26,9 +28,7 @@ class DetectionService {
     spec.image = publicUrl;
     delete (spec as any).file;
 
-    const result = await detectionDao.create(spec);
-
-    return result;
+    return await detectionDao.create(spec);
   }
 
   async getById(spec: GetDetectionDto) {

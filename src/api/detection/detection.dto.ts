@@ -1,5 +1,5 @@
-import { Detection, DetectionStatus } from '../../../prisma/generated/types';
 import { SortOrder } from '../../common/enums';
+import { Detection, DetectionStatus } from '../../../prisma/generated/types';
 
 export type CreateDetectionDto = Omit<
   Detection,
@@ -31,4 +31,9 @@ export type DeleteDetectionDto = {
 export type GetDetectionDto = {
   id: string;
   userId: string;
+};
+
+export type SkinConditionDto = {
+  name: string;
+  assessment: string;
 };
