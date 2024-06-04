@@ -71,7 +71,6 @@ class DetectionDao {
           'Detection.commonName',
           'Detection.medicalName',
           'Detection.image',
-          'Detection.assessment',
           'Detection.createdAt',
         ])
         .where((eb) =>
