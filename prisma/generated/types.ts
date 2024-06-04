@@ -12,11 +12,12 @@ export type DetectionStatus =
   (typeof DetectionStatus)[keyof typeof DetectionStatus];
 export type Detection = {
   id: Generated<string>;
-  userId: string | null;
-  name: string;
+  userId: string;
+  title: string;
+  commonName: string | null;
+  medicalName: string | null;
   status: DetectionStatus;
   image: string;
-  diagnosis: string;
   assessment: string | null;
   createdAt: Generated<Timestamp>;
   createdBy: string;

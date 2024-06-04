@@ -15,10 +15,10 @@ class DetectionDao {
         .values(spec)
         .returning([
           'Detection.id',
-          'Detection.name',
+          'Detection.title',
+          'Detection.commonName',
+          'Detection.medicalName',
           'Detection.image',
-          'Detection.status',
-          'Detection.diagnosis',
           'Detection.assessment',
           'Detection.createdAt',
         ])
@@ -36,10 +36,11 @@ class DetectionDao {
         .selectFrom('Detection')
         .select([
           'Detection.id',
-          'Detection.name',
-          'Detection.image',
+          'Detection.title',
           'Detection.status',
-          'Detection.diagnosis',
+          'Detection.commonName',
+          'Detection.medicalName',
+          'Detection.image',
           'Detection.assessment',
           'Detection.createdAt',
         ])
@@ -65,10 +66,12 @@ class DetectionDao {
         .selectFrom('Detection')
         .select([
           'Detection.id',
-          'Detection.name',
-          'Detection.image',
+          'Detection.title',
           'Detection.status',
-          'Detection.diagnosis',
+          'Detection.commonName',
+          'Detection.medicalName',
+          'Detection.image',
+          'Detection.assessment',
           'Detection.createdAt',
         ])
         .where((eb) =>
@@ -86,8 +89,9 @@ class DetectionDao {
       if (spec.q) {
         query = query.where((eb) =>
           eb.or([
-            eb('Detection.name', 'like', `${spec.q}%`),
-            eb('Detection.diagnosis', 'like', `${spec.q}%`),
+            eb('Detection.title', 'like', `${spec.q}%`),
+            eb('Detection.commonName', 'like', `${spec.q}%`),
+            eb('Detection.medicalName', 'like', `${spec.q}%`),
           ]),
         );
       }

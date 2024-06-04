@@ -17,10 +17,11 @@ class DetectionService {
     (spec as any).id = id;
 
     const detection = await detectionModel.predict(spec.file.buffer);
-    spec.diagnosis = detection.name;
+    spec.commonName = detection.commonName;
+    spec.medicalName = detection.medicalName;
     spec.assessment = detection.assessment;
     spec.status =
-      spec.diagnosis == 'Healthy'
+      spec.medicalName == 'Healthy' || spec.commonName == 'Healthy'
         ? DetectionStatus.SAFE
         : DetectionStatus.DIAGNOSED;
 

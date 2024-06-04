@@ -24,19 +24,20 @@ model User {
 }
 
 model Detection {
-  id         String          @id @default(dbgenerated("gen_random_uuid()"))
-  userId     String?
-  name       String
-  status     DetectionStatus
-  image      String
-  diagnosis  String
-  assessment String?
-  createdAt  DateTime        @default(now())
-  createdBy  String
-  updatedAt  DateTime        @default(now()) @updatedAt
-  updatedBy  String
-  deletedAt  DateTime?
-  deletedBy  String?
+  id          String          @id @default(dbgenerated("gen_random_uuid()"))
+  userId      String
+  title       String
+  commonName  String?
+  medicalName String?
+  status      DetectionStatus
+  image       String
+  assessment  String?
+  createdAt   DateTime        @default(now())
+  createdBy   String
+  updatedAt   DateTime        @default(now()) @updatedAt
+  updatedBy   String
+  deletedAt   DateTime?
+  deletedBy   String?
 
   user User? @relation(fields: [userId], references: [id])
 }

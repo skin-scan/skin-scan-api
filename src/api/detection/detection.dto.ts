@@ -6,7 +6,9 @@ export type CreateDetectionDto = Omit<
   'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'deletedBy'
 > & {
   userId: string;
-  name: string;
+  title: string;
+  commonName: string;
+  medicalName: string;
   assessment: string;
   file: Express.Multer.File;
   createdBy: string;
@@ -34,6 +36,7 @@ export type GetDetectionDto = {
 };
 
 export type SkinConditionDto = {
-  name: string;
+  commonName: string;
+  medicalName: string;
   assessment: string;
 };

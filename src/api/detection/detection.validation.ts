@@ -4,9 +4,9 @@ import { DetectionStatus } from '../../../prisma/generated/types';
 
 export const CreateDetectionSchema = z.object({
   body: z.object({
-    name: z
+    title: z
       .string({
-        required_error: 'Name field is required',
+        required_error: 'Title field is required',
       })
       .min(3)
       .max(100),
