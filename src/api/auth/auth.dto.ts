@@ -21,3 +21,9 @@ export type LoginDto = {
   email: string;
   password: string;
 };
+
+export type ResetPasswordDto = {
+  email: string;
+  oldPassword: string;
+  newPassword: string;
+};

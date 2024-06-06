@@ -6,7 +6,7 @@ import morgan from 'morgan';
 
 import { conf } from './common/conf';
 import { API_PREFIX } from './common/constants';
-import { errorMiddleware } from './common/middlewares/error.middleware';
+import { errorMiddleware } from './common/middlewares';
 
 import pingRoutes from './api/ping/ping.routes';
 import authRoutes from './api/auth/auth.routes';
