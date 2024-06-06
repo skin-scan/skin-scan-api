@@ -37,3 +37,20 @@ export const LoginSchema = z.object({
       .max(100),
   }),
 });
+
+export const ResetPasswordSchema = z.object({
+  body: z.object({
+    oldPassword: z
+      .string({
+        required_error: 'Password field is required',
+      })
+      .min(8)
+      .max(100),
+    newPassword: z
+      .string({
+        required_error: 'Password field is required',
+      })
+      .min(8)
+      .max(100),
+  }),
+});

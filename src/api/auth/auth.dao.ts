@@ -1,5 +1,5 @@
 import { db } from '../../db';
-import { RegisterDto } from './auth.dto';
+import { RegisterDto, ResetPasswordDto } from './auth.dto';
 import { UnprocessableEntityException } from '../../common/exceptions';
 
 class AuthDao {
@@ -24,6 +24,22 @@ class AuthDao {
         .selectAll()
         .where('User.email', '=', email)
         .executeTakeFirst();
+
+      return user;
+    } catch (error) {
+      throw new UnprocessableEntityException(error);
+    }
+  }
+
+  async updatePasswordById(spec: ResetPasswordDto) {
+    try {
+      const user = await db
+        .updateTable('User')
+        .set({
+          hashedPassword: spec.newPassword,
+        })
+        .returningAll()
+        .executeTakeFirstOrThrow();
 
       return user;
     } catch (error) {
