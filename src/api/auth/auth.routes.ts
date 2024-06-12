@@ -47,6 +47,7 @@ router.patch(
     }
 
     const spec = req.body as ResetPasswordDto;
+    spec.id = user.id;
     spec.email = user.email;
 
     const result = await authService.resetPassword(spec);

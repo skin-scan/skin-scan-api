@@ -8,6 +8,14 @@
 
 ## ⚡️ Getting Started
 
+### ⚙️ Ensure environment are set
+
+Example how to create environment
+
+```shell
+cp .env.example .env
+```
+
 ### 🚚 How to run and build app
 
 Example how to start development application
@@ -23,6 +31,20 @@ Example how to run build application
 yarn install
 yarn build
 yarn start:prod
+```
+
+### ↕️ How to do migrations
+
+Example how to executes database migrations to apply pending schema changes
+
+```shell
+yarn migrate:up
+```
+
+Example how to reverts the most recent database migration, undoing schema changes
+
+```shell
+yarn migrate:down
 ```
 
 ### ⛑️ How to check and fixing formatting issues

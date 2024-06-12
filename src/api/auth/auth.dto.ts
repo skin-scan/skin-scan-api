@@ -23,6 +23,7 @@ export type LoginDto = {
 };
 
 export type ResetPasswordDto = {
+  id: string;
   email: string;
   oldPassword: string;
   newPassword: string;
