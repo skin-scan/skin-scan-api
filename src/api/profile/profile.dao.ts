@@ -8,7 +8,13 @@ class ProfileDao {
       const user = await db
         .selectFrom('User')
         .selectAll()
-        .where('User.id', '=', id)
+        .where((eb) =>
+          eb.and([
+            eb('User.id', '=', id),
+            eb('User.deletedAt', 'is', null),
+            eb('User.deletedBy', 'is', null),
+          ]),
+        )
         .executeTakeFirst();
 
       return user;
@@ -21,8 +27,14 @@ class ProfileDao {
     try {
       const user = await db
         .updateTable('User')
-        .where('User.id', '=', id)
         .set(spec)
+        .where((eb) =>
+          eb.and([
+            eb('User.id', '=', id),
+            eb('User.deletedAt', 'is', null),
+            eb('User.deletedBy', 'is', null),
+          ]),
+        )
         .returningAll()
         .executeTakeFirstOrThrow();
 
