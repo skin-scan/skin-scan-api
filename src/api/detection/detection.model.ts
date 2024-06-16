@@ -22,9 +22,10 @@ class DetectionModel {
     try {
       const tensor = tf.node
         .decodeImage(image, 3)
-        .resizeNearestNeighbor([180, 180])
-        .expandDims()
-        .toFloat();
+        .resizeNearestNeighbor([300, 300])
+        .toFloat()
+        .div(tf.scalar(255.0))
+        .expandDims();
 
       const prediction = this.model!.predict(tensor) as tf.Tensor;
       const data = await prediction.data();
